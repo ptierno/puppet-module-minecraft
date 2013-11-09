@@ -8,7 +8,7 @@ define minecraft::op(
   $ensure = 'present'
 ){
 
-  include minecraft
+  include ::minecraft
 
   concat::fragment{"op_fragment_${name}":
     ensure  => $ensure,

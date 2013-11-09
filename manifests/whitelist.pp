@@ -8,7 +8,7 @@ define minecraft::whitelist(
   $ensure = 'present'
 ){
 
-  include minecraft
+  include ::minecraft
 
   concat::fragment{"whitelist_fragment_${name}":
     ensure  => $ensure,

@@ -19,7 +19,7 @@ define minecraft::server_prop(
   $value,
 ){
 
-  include minecraft
+  include ::minecraft
 
   concat::fragment{"server_prop_fragment_${name}":
     ensure  => $ensure,

@@ -1,4 +1,4 @@
-# Definition: minecraft::ipban
+# Definition: minecraft::ban
 #
 # This definition adds an ip address to the Minecraft server's banned ip list
 #
@@ -8,7 +8,7 @@ define minecraft::ban(
   $ensure = 'present'
 ){
 
-  include minecraft
+  include ::minecraft
   
   concat::fragment{"ban_fragment_${name}":
     ensure  => $ensure,

@@ -8,7 +8,7 @@ define minecraft::ipban(
   $ensure = 'present'
 ){
 
-  include minecraft
+  include ::minecraft
   
   concat::fragment{"ipban_fragment_${name}":
     ensure  => $ensure,
