@@ -24,11 +24,12 @@ class minecraft(
   $user          = 'mcserver',
   $group         = 'mcserver',
   $homedir       = '/opt/minecraft',
+  $mode          = '0644',
   $manage_java   = true,
   $manage_screen = true,
   $manage_curl   = true,
   $heap_size     = 2048,
-  $heap_start    = 512,
+  $heap_start    = 512
 ){
 
   validate_string($user)
@@ -58,7 +59,7 @@ class minecraft(
       before => S3file["${homedir}/minecraft_server.jar"],
     }
   }
-
+  
   group { $group:
     ensure => present,
   }
@@ -74,33 +75,41 @@ class minecraft(
     require => User[$user],
   }
 
-  file { "${homedir}/ops.txt":
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0664',
-  } -> Minecraft::Op<| |>
+  concat{"${homedir}/banned-players.txt":
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true
+  }
 
-  file { "${homedir}/banned-players.txt":
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0664',
-  } -> Minecraft::Ban<| |>
+  concat{"${homedir}/banned-ips.txt":
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true
+  }
+  
+  concat{"${homedir}/ops.txt":
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true
+  }
+  
+  concat{"${homedir}/white-list.txt":
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true,
+  }
+  
 
-  file { "${homedir}/banned-ips.txt":
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0664',
-  } -> Minecraft::Ipban<| |>
-
-  file { "${homedir}/white-list.txt":
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0664',
-  } -> Minecraft::Whitelist<| |>
+  concat{"${homedir}/server.properties":
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true
+  }
 
   file { '/etc/init.d/minecraft':
     ensure  => present,

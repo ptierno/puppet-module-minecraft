@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe 'minecraft', :type => :class do
-  let(:facts) do { :osfamily => 'Debian', :lsbdistcodename => 'raring' } end
+  let(:facts) do { 
+    :osfamily        => 'Debian',
+    :lsbdistcodename => 'raring',
+    :concat_basedir  => '/dne' 
+  } end
   let(:default_params) do {
     :user          => 'foo',
     :group         => 'bar',

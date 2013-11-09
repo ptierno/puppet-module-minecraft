@@ -1,25 +1,15 @@
-# Definition: minecraft::ban
+# Definition: minecraft::ipban
 #
-# This definition adds a player to the Minecraft server's ban list
+# This definition adds an ip address to the Minecraft server's banned ip list
 #
 define minecraft::ban(
   $dir    = $minecraft::homedir,
   $file   = 'banned-players.txt',
-  $ensure = 'present',
-  $owner  = $minecraft::user,
-  $group  = $minecraft::group,
-  $mode   = '0644'
+  $ensure = 'present'
 ){
 
   include minecraft
-
-  concat{"${dir}/${file}":
-    owner          => $owner,
-    group          => $group,
-    mode           => $mode,
-    ensure_newline => true
-  }
-
+  
   concat::fragment{"ban_fragment_${name}":
     ensure  => $ensure,
     target  => "${dir}/${file}",

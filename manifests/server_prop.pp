@@ -16,20 +16,10 @@ define minecraft::server_prop(
   $dir    = $minecraft::homedir,
   $file   = 'server.properties',
   $ensure = 'present',
-  $owner  = $minecraft::owner,
-  $group  = $minecraft::group,
-  $mode   = '0664',
   $value,
 ){
 
   include minecraft
-
-  concat{"${dir}/${file}":
-    owner          => $owner,
-    group          => $group,
-    mode           => $mode,
-    ensure_newline => true,
-  }
 
   concat::fragment{"server_prop_fragment_${name}":
     ensure  => $ensure,

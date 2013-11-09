@@ -5,21 +5,11 @@
 define minecraft::ipban(
   $dir    = $minecraft::homedir,
   $file   = 'banned-ips.txt',
-  $ensure = 'present',
-  $owner  = $minecraft::user,
-  $group  = $minecraft::group,
-  $mode   = '0644'
+  $ensure = 'present'
 ){
 
   include minecraft
   
-  concat{"${dir}/${file}":
-    owner          => $owner,
-    group          => $group,
-    mode           => $mode,
-    ensure_newline => true
-  }
-
   concat::fragment{"ipban_fragment_${name}":
     ensure  => $ensure,
     target  => "${dir}/${file}",
