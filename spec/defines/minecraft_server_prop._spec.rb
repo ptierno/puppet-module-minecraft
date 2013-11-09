@@ -1,5 +1,3 @@
-
-
 require 'spec_helper'
 
 describe 'minecraft::server_prop', :type => :define do
@@ -10,7 +8,6 @@ describe 'minecraft::server_prop', :type => :define do
     :lsbdistcodename => 'raring'
   } end
   let(:default_params) do {
-    :dir    => '/baz/qux',
     :file   => 'server.properties',
     :ensure => 'present',
     :value  => 'foo_value'
@@ -20,7 +17,7 @@ describe 'minecraft::server_prop', :type => :define do
     it { should contain_minecraft__server_prop('foo_key').with({ :value => 'foo_value' }) }
     it { should contain_concat__fragment('server_prop_fragment_foo_key').with({
       :ensure  => 'present',
-      :target  => '/baz/qux/server.properties',
+      :target  => '/opt/minecraft/server.properties',
       :content => 'foo_key=foo_value',
       :notify  => 'Service[minecraft]'
     }) }
@@ -30,7 +27,7 @@ describe 'minecraft::server_prop', :type => :define do
     it { should contain_minecraft__server_prop('foo_key') }
     it { should contain_concat__fragment('server_prop_fragment_foo_key').with({
       :ensure  => 'absent',
-      :target  => '/baz/qux/server.properties',
+      :target  => '/opt/minecraft/server.properties',
       :content => 'foo_key=foo_value',
       :notify  => 'Service[minecraft]'
     }) }

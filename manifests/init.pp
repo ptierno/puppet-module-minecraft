@@ -21,16 +21,16 @@
 #  }
 #
 class minecraft(
-  $user          = $minecraft::params::user,
-  $group         = $minecraft::params::group,
-  $homedir       = $minecraft::params::homedir,
+  $user          = 'mcserver',
+  $group         = 'mcserver',
+  $homedir       = '/opt/minecraft',
   $mode          = '0644',
   $manage_java   = true,
   $manage_screen = true,
   $manage_curl   = true,
   $heap_size     = 2048,
   $heap_start    = 512
-) inherits minecraft::params {
+){
 
   validate_string($user)
   validate_string($group)

@@ -3,7 +3,6 @@
 # This definition adds a player to the Minecraft server's whitelist
 #
 define minecraft::whitelist(
-  $dir    = $minecraft::params::homedir,
   $file   = 'white-list.txt',
   $ensure = 'present'
 ){
@@ -12,7 +11,7 @@ define minecraft::whitelist(
 
   concat::fragment{"whitelist_fragment_${name}":
     ensure  => $ensure,
-    target  => "${dir}/${file}",
+    target  => "${::minecraft::homedir}/${file}",
     content => $name,
     notify  => Service['minecraft']
   }

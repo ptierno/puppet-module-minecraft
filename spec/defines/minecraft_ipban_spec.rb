@@ -1,4 +1,3 @@
-
 require 'spec_helper'
 
 describe 'minecraft::ipban', :type => :define do
@@ -9,7 +8,6 @@ describe 'minecraft::ipban', :type => :define do
     :lsbdistcodename => 'raring'
   } end
   let(:default_params) do {
-  	:dir    => '/baz/qux',
   	:file   => 'banned-ips.txt',
   	:ensure => 'present'
   } end
@@ -18,7 +16,7 @@ describe 'minecraft::ipban', :type => :define do
     it { should contain_minecraft__ipban('fooplayer') }
     it { should contain_concat__fragment('ipban_fragment_fooplayer').with({
       :ensure  => 'present',
-      :target  => '/baz/qux/banned-ips.txt',
+      :target  => '/opt/minecraft/banned-ips.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }
@@ -28,7 +26,7 @@ describe 'minecraft::ipban', :type => :define do
   	it { should contain_minecraft__ipban('fooplayer') }
     it { should contain_concat__fragment('ipban_fragment_fooplayer').with({
       :ensure  => 'absent',
-      :target  => '/baz/qux/banned-ips.txt',
+      :target  => '/opt/minecraft/banned-ips.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }

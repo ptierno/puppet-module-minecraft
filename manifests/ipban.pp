@@ -3,7 +3,6 @@
 # This definition adds an ip address to the Minecraft server's banned ip list
 #
 define minecraft::ipban(
-  $dir    = $minecraft::params::homedir,
   $file   = 'banned-ips.txt',
   $ensure = 'present'
 ){
@@ -12,7 +11,7 @@ define minecraft::ipban(
   
   concat::fragment{"ipban_fragment_${name}":
     ensure  => $ensure,
-    target  => "${dir}/${file}",
+    target  => "${::minecraft::homedir}/${file}",
     content => $name,
     notify  => Service['minecraft']
   }

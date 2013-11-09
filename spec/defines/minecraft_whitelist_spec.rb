@@ -1,5 +1,3 @@
-
-
 require 'spec_helper'
 
 describe 'minecraft::whitelist', :type => :define do
@@ -10,7 +8,6 @@ describe 'minecraft::whitelist', :type => :define do
     :lsbdistcodename => 'raring'
   } end
   let(:default_params) do {
-  	:dir    => '/baz/qux',
   	:file   => 'white-list.txt',
   	:ensure => 'present'
   } end
@@ -19,7 +16,7 @@ describe 'minecraft::whitelist', :type => :define do
     it { should contain_minecraft__whitelist('fooplayer') }
     it { should contain_concat__fragment('whitelist_fragment_fooplayer').with({
       :ensure  => 'present',
-      :target  => '/baz/qux/white-list.txt',
+      :target  => '/opt/minecraft/white-list.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }
@@ -29,7 +26,7 @@ describe 'minecraft::whitelist', :type => :define do
   	it { should contain_minecraft__whitelist('fooplayer') }
     it { should contain_concat__fragment('whitelist_fragment_fooplayer').with({
       :ensure  => 'absent',
-      :target  => '/baz/qux/white-list.txt',
+      :target  => '/opt/minecraft/white-list.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }

@@ -3,7 +3,6 @@
 # This definition adds a player to the Minecraft server's auto-op list
 #
 define minecraft::op(
-  $dir    = $minecraft::params::homedir,
   $file   = 'ops.txt',
   $ensure = 'present'
 ){
@@ -12,7 +11,7 @@ define minecraft::op(
 
   concat::fragment{"op_fragment_${name}":
     ensure  => $ensure,
-    target  => "${dir}/${file}",
+    target  => "${::minecraft::homedir}/${file}",
     content => $name,
     notify  => Service['minecraft']
   }

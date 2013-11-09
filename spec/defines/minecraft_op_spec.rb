@@ -1,5 +1,3 @@
-
-
 require 'spec_helper'
 
 describe 'minecraft::op', :type => :define do
@@ -10,7 +8,6 @@ describe 'minecraft::op', :type => :define do
     :lsbdistcodename => 'raring'
   } end
   let(:default_params) do {
-  	:dir    => '/baz/qux',
   	:file   => 'ops.txt',
   	:ensure => 'present'
   } end
@@ -19,7 +16,7 @@ describe 'minecraft::op', :type => :define do
     it { should contain_minecraft__op('fooplayer') }
     it { should contain_concat__fragment('op_fragment_fooplayer').with({
       :ensure  => 'present',
-      :target  => '/baz/qux/ops.txt',
+      :target  => '/opt/minecraft/ops.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }
@@ -29,7 +26,7 @@ describe 'minecraft::op', :type => :define do
   	it { should contain_minecraft__op('fooplayer') }
     it { should contain_concat__fragment('op_fragment_fooplayer').with({
       :ensure  => 'absent',
-      :target  => '/baz/qux/ops.txt',
+      :target  => '/opt/minecraft/ops.txt',
       :content => 'fooplayer',
       :notify  => 'Service[minecraft]'
     }) }
