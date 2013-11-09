@@ -1,8 +1,14 @@
+
+
 require 'spec_helper'
 
 describe 'minecraft::op', :type => :define do
   let(:title) { 'fooplayer' }
-  let(:facts) do { :concat_basedir => '/dne' } end
+  let(:facts) do {
+    :concat_basedir => '/dne',
+    :osfamily => 'Debian',
+    :lsbdistcodename => 'raring'
+  } end
   let(:default_params) do {
   	:dir    => '/baz/qux',
   	:file   => 'ops.txt',
@@ -17,9 +23,7 @@ describe 'minecraft::op', :type => :define do
     it { should contain_concat('/baz/qux/ops.txt').with({
       :owner => 'foo',
       :group => 'bar',
-      :mode  => '0644',
-      :force => 'true',
-      :warn  => 'true'
+      :mode  => '0644'
     }) }
     it { should contain_concat__fragment('op_fragment_fooplayer').with({
       :ensure  => 'present',
@@ -35,9 +39,7 @@ describe 'minecraft::op', :type => :define do
     it { should contain_concat('/baz/qux/ops.txt').with({
       :owner => 'foo',
       :group => 'bar',
-      :mode  => '0644',
-      :force => 'true',
-      :warn  => 'true'
+      :mode  => '0644'
     }) }
     it { should contain_concat__fragment('op_fragment_fooplayer').with({
       :ensure  => 'absent',

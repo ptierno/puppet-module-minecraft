@@ -10,12 +10,14 @@ define minecraft::whitelist(
   $group  = $minecraft::group,
   $mode   = '0644'
 ){
+
+  include minecraft
+
   concat{"${dir}/${file}":
-    owner => $owner,
-    group => $group,
-    mode  => $mode,
-    force => true,
-    warn  => true,
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true
   }
 
   concat::fragment{"whitelist_fragment_${name}":

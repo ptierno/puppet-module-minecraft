@@ -21,12 +21,14 @@ define minecraft::server_prop(
   $mode   = '0664',
   $value,
 ){
+
+  include minecraft
+
   concat{"${dir}/${file}":
-    owner => $owner,
-    group => $group,
-    mode  => $mode,
-    force => true,
-    warn  => true,
+    owner          => $owner,
+    group          => $group,
+    mode           => $mode,
+    ensure_newline => true,
   }
 
   concat::fragment{"server_prop_fragment_${name}":

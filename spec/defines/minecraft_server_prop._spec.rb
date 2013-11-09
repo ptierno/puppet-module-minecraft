@@ -1,8 +1,14 @@
+
+
 require 'spec_helper'
 
 describe 'minecraft::server_prop', :type => :define do
   let(:title) { 'foo_key' }
-  let(:facts) do { :concat_basedir => '/dne' } end
+  let(:facts) do {
+    :concat_basedir => '/dne',
+    :osfamily => 'Debian',
+    :lsbdistcodename => 'raring'
+  } end
   let(:default_params) do {
     :dir    => '/baz/qux',
     :file   => 'server.properties',
@@ -18,9 +24,7 @@ describe 'minecraft::server_prop', :type => :define do
     it { should contain_concat('/baz/qux/server.properties').with({
       :owner => 'foo',
       :group => 'bar',
-      :mode  => '0644',
-      :force => 'true',
-      :warn  => 'true'
+      :mode  => '0644'
     }) }
     it { should contain_concat__fragment('server_prop_fragment_foo_key').with({
       :ensure  => 'present',
@@ -36,9 +40,7 @@ describe 'minecraft::server_prop', :type => :define do
     it { should contain_concat('/baz/qux/server.properties').with({
       :owner => 'foo',
       :group => 'bar',
-      :mode  => '0644',
-      :force => 'true',
-      :warn  => 'true'
+      :mode  => '0644'
     }) }
     it { should contain_concat__fragment('server_prop_fragment_foo_key').with({
       :ensure  => 'absent',
