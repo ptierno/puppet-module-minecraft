@@ -13,8 +13,12 @@
 #  }
 #
 define minecraft::server_prop(
-  $dir  = $minecraft::homedir,
-  $file = 'server.properties',
+  $dir    = $minecraft::homedir,
+  $file   = 'server.properties',
+  $ensure = 'present',
+  $owner  = $minecraft::owner,
+  $group  = $minecraft::group,
+  $mode   = '0664',
   $value,
 ){
   concat{"${dir}/${file}":
@@ -26,6 +30,7 @@ define minecraft::server_prop(
   }
 
   concat::fragment{"server_prop_fragment_${name}":
+    ensure  => $ensure,
     target  => "${dir}/${file}",
     content => "${name}=${value}",
     notify  => Service['minecraft']
