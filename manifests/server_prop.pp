@@ -13,7 +13,7 @@
 #  }
 #
 define minecraft::server_prop(
-  $dir    = $minecraft::homedir,
+  $dir    = $minecraft::params::homedir,
   $file   = 'server.properties',
   $ensure = 'present',
   $value,

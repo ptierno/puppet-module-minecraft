@@ -3,7 +3,7 @@
 # This definition adds an ip address to the Minecraft server's banned ip list
 #
 define minecraft::ban(
-  $dir    = $minecraft::homedir,
+  $dir    = $minecraft::params::homedir,
   $file   = 'banned-players.txt',
   $ensure = 'present'
 ){

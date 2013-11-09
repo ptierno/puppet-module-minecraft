@@ -3,7 +3,7 @@
 # This definition adds a player to the Minecraft server's auto-op list
 #
 define minecraft::op(
-  $dir    = $minecraft::homedir,
+  $dir    = $minecraft::params::homedir,
   $file   = 'ops.txt',
   $ensure = 'present'
 ){

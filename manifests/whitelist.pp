@@ -3,7 +3,7 @@
 # This definition adds a player to the Minecraft server's whitelist
 #
 define minecraft::whitelist(
-  $dir    = $minecraft::homedir,
+  $dir    = $minecraft::params::homedir,
   $file   = 'white-list.txt',
   $ensure = 'present'
 ){
