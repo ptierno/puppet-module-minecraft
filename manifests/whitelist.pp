@@ -19,6 +19,7 @@ define minecraft::whitelist(
   }
 
   concat::fragment{"whitelist_fragment_${name}":
+    ensure  => $ensure,
     target  => "${dir}/${file}",
     content => $name,
     notify  => Service['minecraft']

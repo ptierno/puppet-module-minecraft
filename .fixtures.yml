@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    'stdlib': 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
+    'concat': 'git://github.com/puppetlabs/puppetlabs-concat.git'
+    's3file': 'git://github.com/branan/puppet-module-s3file.git'
+    'java'  : 'git://github.com/puppetlabs/puppetlabs-java.git'
+  symlinks:
+    'minecraft': "#{source_dir}"
