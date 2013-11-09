@@ -12,14 +12,22 @@
 #    value => 'true'
 #  }
 #
-define minecraft::server_prop (
+define minecraft::server_prop(
+  $dir  = $minecraft::homedir,
+  $file = 'server.properties',
   $value,
-)
-{
-  file_line { $name:
-    path   => "${minecraft::homedir}/server.properties",
-    line   => "${name}=${value}",
-    match  => "${name}=.*",
-    notify => Service['minecraft'],
+){
+  concat{"${dir}/${file}":
+    owner => $owner,
+    group => $group,
+    mode  => $mode,
+    force => true,
+    warn  => true,
+  }
+
+  concat::fragment{"server_prop_fragment_${name}":
+    target  => "${dir}/${file}",
+    content => "${name}=${value}",
+    notify  => Service['minecraft']
   }
 }

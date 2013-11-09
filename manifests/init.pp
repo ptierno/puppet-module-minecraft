@@ -29,8 +29,17 @@ class minecraft(
   $manage_curl   = true,
   $heap_size     = 2048,
   $heap_start    = 512,
-)
-{
+){
+
+  validate_string($user)
+  validate_string($group)
+  validate_string($homedir)
+  validate_bool($manage_java)
+  validate_bool($manage_screen)
+  validate_bool($manage_curl)
+  validate_string($heap_size)
+  validate_string($heap_size)
+
   if $manage_java {
     class { 'java':
       distribution => 'jre',
